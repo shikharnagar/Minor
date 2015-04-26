@@ -8,6 +8,8 @@ package Code;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.net.URL;
 
 /**
  *
@@ -20,8 +22,10 @@ public class Ball {
     private int diameter=40;
     private int dx=10;
     private int dy=10;
-    private boolean bonus=false;
-    private boolean penalty=false;
+    
+    private Image ballImage;
+    private URL url;
+    
     
     public Ball(int i,int j){
         
@@ -69,24 +73,10 @@ public class Ball {
         this.dy = dy;
     }
 
-    public boolean isBonus() {
-        return bonus;
-    }
-
-    public void setBonus(boolean bonus) {
-        this.bonus = bonus;
-    }
-
-    public boolean isPenalty() {
-        return penalty;
-    }
-
-    public void setPenalty(boolean penalty) {
-        this.penalty = penalty;
-    }
     
-    
-    
+
+     
+
     public void update(Main m){
         x+=dx;
         y+=dy;
@@ -103,18 +93,18 @@ public class Ball {
         if(y<0){
             dy=-dy;
         }
+        url=m.getDocumentBase();
+        ballImage=m.getImage(url, "bomb.gif");
         
         
     }
     
     
     public void paint(Graphics g){
+        g.drawImage(ballImage, x, y, null);
         g.setColor(Color.BLUE);
-        g.fillOval(x, y, diameter, diameter);
-        if(bonus==true){
-            g.setColor(Color.green);
-            g.fillOval(x, y, diameter, diameter);
-        }
+        //g.fillOval(x, y, diameter, diameter);
+        
     }
     
 }
