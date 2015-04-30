@@ -34,6 +34,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
     private int y=0;
     private int dx=1;
     Ball b;
+    private Image GameNameImage;
     private Image i, bgImage,menuImage;
     private Graphics doubleG;
     private int score=0;
@@ -137,6 +138,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         bgImage = getImage(url, "bgimg1.png");
         
         //MAIN MENU
+        GameNameImage = getImage(url, "gameNameImage.png");
         menuImage = getImage(url, "menuImage.jpg");
         storyImage = getImage(url, "storyImage.png");
         timeImage = getImage(url, "timeImage.png");
@@ -253,7 +255,8 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
     @Override
     public void paint(Graphics g) {
         if(storyMode==true && time==true && practice==true){
-            g.drawImage(menuImage, x, y, this);//main menu            
+            g.drawImage(menuImage, x, y, this);//main menu  
+            g.drawImage(GameNameImage, getWidth()/2-200, 100, this);
             g.drawImage(storyImage, getWidth()/2-270, getHeight()/2, this);//story mode            
             g.drawImage(timeImage, getWidth()/2-70, getHeight()/2, this);//time attack            
             g.drawImage(practiceImage, getWidth()/2+130, getHeight()/2, this);//practice    
