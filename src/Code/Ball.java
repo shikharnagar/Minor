@@ -20,8 +20,8 @@ public class Ball {
     private int x;
     private int y;
     private int diameter=40;
-    private int dx=10;
-    private int dy=10;
+    private int dx=1;
+    private int dy=1;
     
     private Image ballImage;
     private URL url;
@@ -80,22 +80,47 @@ public class Ball {
     public void update(Main m){
         x+=dx;
         y+=dy;
+        
+        //width bounce
         if(x+diameter>m.getWidth()){
-            dx=-dx;
+            dx=-dx;            
         }
         if(x<0){
-            dx=-dx;
+            dx=-dx;            
         }
+        //height bounce
         if(y+diameter>m.getHeight()){
-            dy=-dy;
+            dy=-dy;          
         }
-            
         if(y<0){
-            dy=-dy;
+            dy=-dy;            
         }
-        url=m.getDocumentBase();
-        ballImage=m.getImage(url, "bomb.gif");
         
+        //speed increase
+        if(m.isTime()==false && m.isInstruction()==false){
+            if(m.getGameTime()%1200==0){
+                if(dx<0){
+                    dx-=3;
+                }
+                if(dy<0){
+                    dy-=3;
+                }
+                if(dx>0){
+                    dx+=3;
+                }
+                if(dy>0){
+                    dy+=3;
+                }     
+            }
+        }
+        
+        url=m.getDocumentBase();
+        if(m.isGameOver()==true){
+            ballImage = m.getImage(url, "explosion.gif");
+        }else{
+            ballImage=m.getImage(url, "bomb.gif");
+        }   
+                
         
     }
     

@@ -1,0 +1,11 @@
+To add a new repo: git init (Only first time)
+
+git status--> To check the status of the current folder structure
+
+git add-> to add new and modified files.
+
+git commit -m 'message' -> to commit the changes in local repo
+
+git push origin master -> push the changes to remote repo
+
+git pull origin master-> to pull the changes from remote repo
