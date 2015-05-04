@@ -27,8 +27,7 @@ public class Ball {
     private URL url;
     
     
-    public Ball(int i,int j){
-        
+    public Ball(int i,int j){        
         x=i;
         y=j;
     }
@@ -116,20 +115,20 @@ public class Ball {
         
         url=m.getDocumentBase();
         if(m.isGameOver()==true){
-            ballImage = m.getImage(url, "explosion.gif");
+            if(m.getScore()<5 || m.getScore()<10){
+                ballImage = m.getImage(url, "explosion.gif");
+            }
+            else{
+                ballImage=m.getImage(url, "bomb.png");
+            }
         }else{
             ballImage=m.getImage(url, "bomb.gif");
-        }   
-                
-        
+        }         
     }
     
     
     public void paint(Graphics g){
-        g.drawImage(ballImage, x, y, null);
-        g.setColor(Color.BLUE);
-        //g.fillOval(x, y, diameter, diameter);
-        
+        g.drawImage(ballImage, x, y, null);       
     }
     
 }

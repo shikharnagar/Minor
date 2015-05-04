@@ -60,6 +60,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
     private Image storyNarrationImage, chiefImage, soldierImage;
     private Image dialogue;
     private Image level1bgImage, level2bgImage, level3bgImage;
+    private Image level3InstructionImage;
     private AudioClip level1Music, level2Music, level3Music;
     
     
@@ -67,9 +68,10 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
     private boolean practice=true;
     private boolean instruction=false;
     private Image storyImage, timeImage, practiceImage;
-    private Image instructionImage;
+    private Image storyInstructionImage;
+    private Image timeInstructionImage;
     
-    private Image practicebgImage;
+    private Image practicebgImage;    
     private AudioClip practiceMusic;
     
 
@@ -134,8 +136,9 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         url=getDocumentBase();
         hitMusic = getAudioClip(url, "hit.au");
         missMusic = getAudioClip(url, "miss.au");
-        bgMusic = getAudioClip(url, "bgMusic.au");
+        bgMusic = getAudioClip(url, "level3Music.au");
         bgImage = getImage(url, "bgimg1.png");
+        timeInstructionImage = getImage(url, "timeInstructionImage.jpg");
         
         //MAIN MENU
         GameNameImage = getImage(url, "gameNameImage.png");
@@ -149,13 +152,17 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         chiefImage = getImage(url, "chief.png");
         soldierImage = getImage(url, "soldier.png");
         dialogue = getImage(url, "dialogue.gif");
+        storyInstructionImage = getImage(url, "storyInstructionImage.jpg");
         level1bgImage = getImage(url, "level1.jpg");
         level2bgImage = getImage(url, "level2.jpg");
+        level3InstructionImage = getImage(url, "level3Instruction.jpg");
         level3bgImage = getImage(url, "level3.jpg");
         level1Music = getAudioClip(url, "level1Music.au");
+        level2Music = getAudioClip(url, "level2Music.au");
         level3Music = getAudioClip(url, "level3Music.au");
         
-        //PRACTICE
+        
+        //PRACTICE        
         practicebgImage = getImage(url, "practicebg.jpg");
         practiceMusic = getAudioClip(url, "practiceMusic.au");
         
@@ -268,6 +275,10 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
             g.drawImage(soldierImage, 600, 300, this);
             g.drawImage(dialogue, 0, 0, this);
         }
+        //STORY INSTRUCTION
+        if(instruction==true && storyMode==false){
+            g.drawImage(storyInstructionImage, 0, 0, this);
+        }
         //LEVEL 1
         else if(storyMode == false && storyNarration == false && instruction==false && level1==true){            
             bgForLevels(g, level1bgImage);
@@ -277,9 +288,11 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
                     g.drawString("You have cleared Level 1!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
                     g.drawString("Press Space to play Level 2", this.getWidth()/2-130,getHeight()/2+50);
                     PlayerScore(g);
+                    
                 }else{
                     g.drawString("You have Fail this City!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
                     PlayerScore(g);
+                    returnToMainMenu(g);
                 }
                
             }
@@ -294,16 +307,18 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
                     g.drawString("You have cleared Level 2!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
                     g.drawString("Press Space to play Level 3", this.getWidth()/2-130,getHeight()/2+50);
                     PlayerScore(g);
+                    
                 }else{
                     g.drawString("You have Fail this City!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
                     PlayerScore(g);
+                    returnToMainMenu(g);
                 }
             
             }
         }
         //LEVEL 3
         else if(level3Instruction==true){
-            g.drawString("Press space to continue", 400, 300);
+            g.drawImage(level3InstructionImage, 0, 0, this);
         }
         else if(storyMode == false && storyNarration == false && instruction==false && level3Instruction==false && level3==true){
             bgForLevels(g, level3bgImage);
@@ -312,31 +327,41 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
                 if(score>5){
                     g.drawString("You have Saved your Friend!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
                     PlayerScore(g);
+                    returnToMainMenu(g);
                 }else{
                     g.drawString("You are not a good friend", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
                     PlayerScore(g);
+                    returnToMainMenu(g);
                 }
             
             }
         }
         //TIME ATTACK
+        else if(instruction==true && time==false){
+            g.drawImage(timeInstructionImage, 0, 0, this);
+        }
         else if(time==false && instruction==false){            
             bgForLevels(g, bgImage);            
             if(gameOver==true){
                 if(score<10){
                     g.drawString("You are not a good soldier", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    returnToMainMenu(g);
                 }
                 else if(score<20){
                     g.drawString("You need to work hard", (this.getWidth()/2)-130, (this.getHeight()/2)-100);                
+                    returnToMainMenu(g);
                 }
                 else if(score<30){
-                    g.drawString("we can use soldiers like you", (this.getWidth()/2)-130, (this.getHeight()/2)-100);                
+                    g.drawString("we can use soldiers like you", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    returnToMainMenu(g);
                 }
                 else if(score<40){
-                    g.drawString("Are you a professional?", (this.getWidth()/2)-130, (this.getHeight()/2)-100);                
+                    g.drawString("Are you a professional?", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    returnToMainMenu(g);
                 }
                 else if(score<50){
-                    g.drawString("You are hired!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);                
+                    g.drawString("You are hired!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    returnToMainMenu(g);
                 }                
                 PlayerScore(g);
             }
@@ -344,6 +369,9 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         //PRACTICE
         else if(practice==false && instruction==false){
             bgForLevels(g, practicebgImage);
+            g.setFont(new Font("ARIAL",Font.BOLD,18));
+            g.setColor(Color.WHITE);
+            g.drawString("Press ESC to quit !", 5, 25);
         }
         
         
@@ -402,16 +430,8 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
                     b.setDy(4);
                 }                       
             }
-        }
-        
-        if(instruction==true){
-            if(e.getX() > 0 && e.getX() < 100){
-                if(e.getY() > 0 && e.getY() < 100){
-                    instruction=false;
-                }
-            }
-        }
-         
+        }        
+               
         //story mode
         if(gameOver==false && storyMode==false && storyNarration==false && instruction==false){
             hitMissLogic(e);                
@@ -425,8 +445,16 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         //PRACTICE
         if(gameOver==false && practice==false){
             hitMissLogic(e);
-        }  
+        }
         
+        //RETURN TO MAIN MENU
+        if(gameOver==true){
+            if(e.getX() > getWidth()/2-100 && e.getX() < getWidth()/2+100){
+                if(e.getY() > getHeight()/2+50 && e.getY() < getHeight()/2+100){
+                    restart();
+                }
+            }            
+        }       
         
     }
 
@@ -474,6 +502,8 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
                 level2=true;
                 gameOver=false;
                 score=0;
+                level1Music.stop();
+                level2Music.loop();
                 b.setDiameter(40);
                 b.setX(10);
                 b.setY(10);
@@ -484,7 +514,9 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         else if(level2==true && gameOver==true && storyMode==false && score>5){
             if(e.getKeyCode()==KeyEvent.VK_SPACE){
                 level2=false;
-                level3Instruction=true;            
+                level3Instruction=true;  
+                level2Music.stop();
+                level3Music.play();
             }        
         }
         else if(level3Instruction==true){
@@ -492,14 +524,22 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
                 level3Instruction=false;
                 level3=true;
                 gameOver=false;
-                score=0;
-                level1Music.stop();
-                level3Music.play();
+                score=0;                
                 b.setDiameter(40);
                 b.setX(10);
                 b.setY(10);
                 b.setDx(9);
                 b.setDy(9);
+            }
+        }
+        else if(practice==false || instruction==false || storyMode==false){
+            if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+                restart();
+            }
+        }
+        else if(instruction==true){
+            if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                instruction=false;
             }
         }
         
@@ -550,4 +590,34 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         b.setDy(0);
         b.setDiameter(0);
    } 
+   
+   public void returnToMainMenu(Graphics g){
+       g.drawRect(getWidth()/2-100, getHeight()/2+50, 200, 50);
+       g.drawString("Main Menu", getWidth()/2-70, getHeight()/2+80);
+   }
+   
+   public void restart(){
+        score=0;
+        gameTime=0;
+        gameOver=false;
+        menu=true;
+        storyMode=true;
+        storyNarration=false;
+        level1=false;
+        level2=false;
+        level3=false;
+        level3Instruction=false;
+        time=true;
+        practice=true;
+        instruction=false;
+        practiceMusic.stop();
+        level1Music.stop();
+        level2Music.stop();
+        level3Music.stop();
+        
+        b=new Ball(10,10);
+        bgMusic.loop();
+   }
+   
+   
 }
