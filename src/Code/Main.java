@@ -42,8 +42,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
     private int gameTime=0;
     private boolean gameOver=false;
     private AudioClip bgMusic,hitMusic, missMusic; 
-    private URL url;
-    private Image mainMenu;
+    private URL url;    
     
     //menu screen
     private boolean menu=true;
@@ -58,8 +57,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
     private boolean level2=false;
     private boolean level3=false;
     private boolean level3Instruction=false;
-    private Image storyNarrationImage, chiefImage, soldierImage;
-    private Image dialogue;
+    private Image storyNarrationImage, chiefImage, soldierImage;    
     private Image level1bgImage, level2bgImage, level3bgImage;
     private Image level3InstructionImage;
     private AudioClip level1Music, level2Music, level3Music;
@@ -137,10 +135,9 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         url=getDocumentBase();
         hitMusic = getAudioClip(url, "hit.au");
         missMusic = getAudioClip(url, "miss.au");
-        bgMusic = getAudioClip(url, "level3Music.au");
-        bgImage = getImage(url, "bgimg1.png");
+        bgMusic = getAudioClip(url, "level3Music.au");        
         timeInstructionImage = getImage(url, "timeInstructionImage.jpg");
-        mainMenu = getImage(url, "mainMenu.png");
+        
         
         //MAIN MENU
         GameNameImage = getImage(url, "gameNameImage.png");
@@ -152,8 +149,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         //STORY MODE
         storyNarrationImage = getImage(url, "storyNarrationImage.jpg");
         chiefImage = getImage(url, "chief.png");
-        soldierImage = getImage(url, "soldier.png");
-        dialogue = getImage(url, "dialogue.gif");
+        soldierImage = getImage(url, "soldier.png");        
         storyInstructionImage = getImage(url, "storyInstructionImage.jpg");
         level1bgImage = getImage(url, "level1.jpg");
         level2bgImage = getImage(url, "level2.jpg");
@@ -163,6 +159,8 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         level2Music = getAudioClip(url, "level2Music.au");
         level3Music = getAudioClip(url, "level3Music.au");
         
+        //TIME ATTACK
+        bgImage = getImage(url, "bgimg1.png");
         
         //PRACTICE        
         practicebgImage = getImage(url, "practicebg.jpg");
@@ -275,7 +273,12 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
             g.drawImage(storyNarrationImage, storyNarrationX, storyNarrationY, this);
             g.drawImage(chiefImage, 0, 0, this);
             g.drawImage(soldierImage, 600, 300, this);
-            g.drawImage(dialogue, 0, 0, this);
+            g.setColor(Color.yellow);
+            g.setFont(new Font("ARIAL",Font.ITALIC,20));
+            g.drawString("Your City is in danger. You must diffuse all the bombs", 150, 50);
+            g.drawString("coming your way by cutting the wires using the knife.", 150, 80);
+            g.drawString("I'll do my best to minimize the casualties.", 250,getHeight()-80 );
+            g.drawString("(PRESS 'SPACE' TO CONTINUE)", getWidth()/2-150, getHeight()/2);            
         }
         //STORY INSTRUCTION
         if(instruction==true && storyMode==false){
@@ -601,8 +604,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
    
    public void returnToMainMenu(Graphics g){
        g.drawRect(getWidth()/2-100, getHeight()/2+50, 200, 50);
-       g.drawString("Main Menu", getWidth()/2-70, getHeight()/2+80);
-       //g.drawImage(mainMenu, getWidth()/2-100, getHeight()/2+50, this);
+       g.drawString("Main Menu", getWidth()/2-70, getHeight()/2+80);       
    }
    
    public void restart(){
