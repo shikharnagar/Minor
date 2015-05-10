@@ -43,6 +43,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
     private boolean gameOver=false;
     private AudioClip bgMusic,hitMusic, missMusic; 
     private URL url;
+    private Image mainMenu;
     
     //menu screen
     private boolean menu=true;
@@ -139,6 +140,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         bgMusic = getAudioClip(url, "level3Music.au");
         bgImage = getImage(url, "bgimg1.png");
         timeInstructionImage = getImage(url, "timeInstructionImage.jpg");
+        mainMenu = getImage(url, "mainMenu.png");
         
         //MAIN MENU
         GameNameImage = getImage(url, "gameNameImage.png");
@@ -284,13 +286,15 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
             bgForLevels(g, level1bgImage);
             String s = Integer.toString(score);
             if(gameOver==true){
+                g.setColor(Color.green);
                 if(score>10){
-                    g.drawString("You have cleared Level 1!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
-                    g.drawString("Press Space to play Level 2", this.getWidth()/2-130,getHeight()/2+50);
+                    g.drawString("You have cleared Level 1!!", (this.getWidth()/2)-180, (this.getHeight()/2)-100);
+                    g.drawString("Press Space to play Level 2", this.getWidth()/2-180,getHeight()/2+50);
                     PlayerScore(g);
                     
                 }else{
-                    g.drawString("You have Fail this City!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    g.setColor(Color.red);
+                    g.drawString("You have Failed this City!", (this.getWidth()/2)-150, (this.getHeight()/2)-100);                    
                     PlayerScore(g);
                     returnToMainMenu(g);
                 }
@@ -302,14 +306,16 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         else if(storyMode == false && storyNarration == false && instruction==false && level2==true){            
             bgForLevels(g, level2bgImage);
             String s = Integer.toString(score);
-            if(gameOver==true){
+            if(gameOver==true){ 
+                g.setColor(Color.red);
                 if(score>5){
-                    g.drawString("You have cleared Level 2!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
-                    g.drawString("Press Space to play Level 3", this.getWidth()/2-130,getHeight()/2+50);
+                    g.drawString("You have cleared Level 2!!", (this.getWidth()/2)-180, (this.getHeight()/2)-100);
+                    g.drawString("Press Space to play Level 3", this.getWidth()/2-180,getHeight()/2+50);
                     PlayerScore(g);
                     
                 }else{
-                    g.drawString("You have Fail this City!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    g.setColor(Color.red);
+                    g.drawString("You have Failed this City!", (this.getWidth()/2)-150, (this.getHeight()/2)-100);
                     PlayerScore(g);
                     returnToMainMenu(g);
                 }
@@ -325,11 +331,12 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
             String s = Integer.toString(score);
             if(gameOver==true){
                 if(score>5){
-                    g.drawString("You have Saved your Friend!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    g.setColor(Color.white);
+                    g.drawString("You have Saved your Friend!!", (this.getWidth()/2)-180, (this.getHeight()/2)-100);
                     PlayerScore(g);
                     returnToMainMenu(g);
                 }else{
-                    g.drawString("You are not a good friend", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    g.drawString("You are not a good friend!!", (this.getWidth()/2)-180, (this.getHeight()/2)-100);
                     PlayerScore(g);
                     returnToMainMenu(g);
                 }
@@ -343,24 +350,25 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
         else if(time==false && instruction==false){            
             bgForLevels(g, bgImage);            
             if(gameOver==true){
+                g.setColor(Color.white);
                 if(score<10){
-                    g.drawString("You are not a good soldier", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    g.drawString("You are not a good soldier!!", (this.getWidth()/2)-180, (this.getHeight()/2)-100);
                     returnToMainMenu(g);
                 }
                 else if(score<20){
-                    g.drawString("You need to work hard", (this.getWidth()/2)-130, (this.getHeight()/2)-100);                
+                    g.drawString("You need to work hard", (this.getWidth()/2)-150, (this.getHeight()/2)-100);                
                     returnToMainMenu(g);
                 }
                 else if(score<30){
-                    g.drawString("we can use soldiers like you", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    g.drawString("We can use soldiers like you!", (this.getWidth()/2)-180, (this.getHeight()/2)-100);
                     returnToMainMenu(g);
                 }
                 else if(score<40){
-                    g.drawString("Are you a professional?", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    g.drawString("Are you a professional?", (this.getWidth()/2)-150, (this.getHeight()/2)-100);
                     returnToMainMenu(g);
                 }
                 else if(score<50){
-                    g.drawString("You are hired!!", (this.getWidth()/2)-130, (this.getHeight()/2)-100);
+                    g.drawString("You are hired!!", (this.getWidth()/2)-100, (this.getHeight()/2)-100);
                     returnToMainMenu(g);
                 }                
                 PlayerScore(g);
@@ -585,7 +593,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
    public void PlayerScore(Graphics g){
         String s = Integer.toString(score);
         g.drawString("Your Score", (this.getWidth()/2)-80, (this.getHeight()/2)-50);
-        g.drawString(s, this.getWidth()/2, this.getHeight()/2);
+        g.drawString(s, this.getWidth()/2-20, this.getHeight()/2);
         b.setDx(0);
         b.setDy(0);
         b.setDiameter(0);
@@ -594,6 +602,7 @@ public class Main extends Applet implements Runnable, MouseListener, KeyListener
    public void returnToMainMenu(Graphics g){
        g.drawRect(getWidth()/2-100, getHeight()/2+50, 200, 50);
        g.drawString("Main Menu", getWidth()/2-70, getHeight()/2+80);
+       //g.drawImage(mainMenu, getWidth()/2-100, getHeight()/2+50, this);
    }
    
    public void restart(){

@@ -115,7 +115,7 @@ public class Ball {
         
         url=m.getDocumentBase();
         if(m.isGameOver()==true){
-            if(m.getScore()<5 || m.getScore()<10){
+            if(m.getScore()<=5){
                 ballImage = m.getImage(url, "explosion.gif");
             }
             else{
